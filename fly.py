@@ -1,4 +1,5 @@
 import cv2
+from datetime import datetime
 from time import sleep 
 import keyboard as key 
 from djitellopy import tello 
@@ -34,10 +35,12 @@ drone.connect()
 print(drone.get_battery())
 drone.streamon()
 
-# Create the video writer.
-out = cv2.VideoWriter('rec.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 25, (960, 720))
-model = YOLO('yolov8n.pt')
+now = datetime.now()
+date_time = now.strftime("%m-%d-%Y-%H-%M-%S")
 
+# Create the video writer.
+out = cv2.VideoWriter(f"video-{date_time}.mp4", cv2.VideoWriter_fourcc(*'mp4v'), 25, (960, 720))
+model = YOLO('yolov8n.pt')
 
 while True:
     vals = controls()
